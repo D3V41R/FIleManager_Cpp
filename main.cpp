@@ -4,6 +4,8 @@
 #include<filesystem>
 
 
+
+
 class FileManager {
 private:
     std::string currentPath;
@@ -21,7 +23,7 @@ public:
     }
 
     void createDirectory(const std::string& dirName) {
-
+        std::filesystem::create_directory(dirName);
     }
 
 
@@ -54,10 +56,12 @@ public:
     }
 
     void deleteDirectory() {
-
+        std::filesystem::remove_all(currentPath);
     }
 
-   std::vector<File> listFiles(const std::string& path) {}
+   std::vector<File> listFiles(const std::string& path) {
+
+    }
 
 
 };
@@ -75,9 +79,12 @@ public:
 
     void set_filename(std::string fileName) {
         this-> fileName = fileName;
+
     }
 
     void set_path(std::string filePath) {
+        auto filePath = std::filesystem::current_path(); // getting path
+        std::filesystem::current_path(filePath); // setting path
         this->filePath = filePath;
     }
 
@@ -118,7 +125,41 @@ private:
 
 public:
 
+    void set_dirName(std::string dirName) {
+        this->dirName = dirName;
+    }
+    void set_dirPath(std::string dirPath) {
+
+        this->dirPath = dirPath;
+    }
+    void set_files(std::vector<File> files) {
+        this->files = files;
+    }
+    void set_subdirectories(std::vector<Directory> subdirectories) {
+        this->subdirectories = subdirectories;
+    }
+
+    std::string get_dirName() {
+        return this->dirName;
+    }
+    std::string get_dirPath() {
+        return this->dirPath;
+
+    }
+
+    std::vector<File> get_files() {
+        return this->files;
+    }
+    std::vector<Directory> get_subdirectories() {
+        return this->subdirectories;
+    }
+
+    void displayMetaData() {
+
+    }
+
     void listContents() const {
+
 
     }
 
