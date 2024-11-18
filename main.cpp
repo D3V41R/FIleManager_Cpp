@@ -5,7 +5,6 @@
 
 
 
-
 class FileManager {
 private:
     std::string currentPath;
@@ -60,6 +59,9 @@ public:
     }
 
    std::vector<File> listFiles(const std::string& path) {
+        for (const auto& i : std::filesystem::directory_iterator(path)) {
+            std::cout << i.path() << std::endl;
+        }
 
     }
 
@@ -89,7 +91,7 @@ public:
     }
 
     void set_filesize(std::size_t fileSize) {
-        this-> fileSize = fileSize;
+        this->fileSize = fileSize;
     }
 
     void set_creationDate( std::string creationDate) {
@@ -149,7 +151,7 @@ public:
         this->files = files;
     }
     void set_subdirectories(std::vector<Directory> subdirectories) {
-        this->subdirectories = subdirectories;
+        this-> subdirectories = subdirectories;
     }
 
     std::string get_dirName() {
