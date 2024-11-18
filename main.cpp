@@ -104,6 +104,19 @@ public:
         this->fileType = fileType;
     }
 
+    void get_fileType(std::string filePath) {
+        if (std::filesystem::exists(filePath)) {
+            if (std::filesystem::is_regular_file(filePath)) {
+                fileType = "regular";
+                std::cout << fileType << "\n";
+            }
+            else if (std::filesystem::is_directory(filePath)) {
+                fileType = "directory";
+                std::cout << fileType << "\n";
+            }
+        }
+    }
+
     void displayMetaData() {
 
     }
