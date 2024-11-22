@@ -85,14 +85,16 @@ public:
     }
 
     void set_path(std::string filePath) {
+        this-> filePath = filePath;
         auto filePath = std::filesystem::current_path(); // getting path
         std::filesystem::current_path(filePath); // setting path
-        this->filePath = filePath;
+
     }
 
     void set_filesize(std::size_t fileSize) {
         this->fileSize = fileSize;
     }
+
 
     void set_creationDate( std::string creationDate) {
         this->creationDate = creationDate;
@@ -103,7 +105,11 @@ public:
     }
 
     void set_fileType (std::string fileType) {
-        this->fileType = fileType;
+        std::filesystem::file_status(fileType);
+    }
+
+    std::string get_fileName() {
+        return fileName;
     }
 
     void get_fileType(std::string filePath) {
@@ -144,7 +150,6 @@ public:
         this->dirName = dirName;
     }
     void set_dirPath(std::string dirPath) {
-
         this->dirPath = dirPath;
     }
     void set_files(std::vector<File> files) {
@@ -158,8 +163,8 @@ public:
         return this->dirName;
     }
     std::string get_dirPath() {
-        return this->dirPath;
 
+        return dirPath;
     }
 
     std::vector<File> get_files() {
@@ -170,15 +175,38 @@ public:
     }
 
     void displayMetaData() {
+            std::cout << "Directory Name: " << dirName << "\n";
+            std::cout << "Directory Path: " << dirPath << "\n";
+            std::cout << "Number of Files: " << files.size() << "\n";
+            std::cout << "Number of Subdirectories: " << subdirectories.size() << "\n";
 
     }
 
-    void listContents() const {
+    void listContents() {
+
+        std::cout << "Contents of " << dirName << ":\n";
+
+        std::cout << "Files:\n";
+        for (auto& file : files) {
+            std::cout << "  - " << file.get_fileName() << "\n"; // Assuming File has a method `getFileName()`
+        }
+
+        std::cout << "Subdirectories:\n";
+        for ( auto& subdir : subdirectories) {
+            std::cout << "  - " << subdir.get_dirName() << "\n";
+        }
 
 
     }
 
     Directory* navigateToSubdirectory(const std::string& subDirName) {
+        for (auto& subdir : subdirectories) {
+            if (subdir.get_dirName() == subDirName) {
+                return &subdir;
+            }
+        }
+        std::cout << "Subdirectory '" << subDirName << "' not found.\n";
+        return nullptr;
 
     }
 
