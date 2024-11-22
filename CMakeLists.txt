@@ -3,4 +3,9 @@ project(FileManager_Cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(InventoryManagementProject main.cpp)
+add_executable(FileManager main.cpp
+        File.h
+        Directory.h
+        SearchEngine.h
+        UserInterface.h
+        FileManager.h)
